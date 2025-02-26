@@ -5,7 +5,9 @@ import pandas as pd
 np.random.seed(42)
 num_samples = 200
 
-    
+# ---------------------------
+# Data Generation
+# --------------------------- 
 x1_class0 = np.random.normal(loc=2, scale=1, size=(num_samples // 2, 2))
 x1_class1 = np.random.normal(loc=5, scale=1, size=(num_samples // 2, 2))
 
@@ -22,6 +24,9 @@ train_size = int(N * train_ratio)
 indices = np.random.permutation(N)
 train_idx, test_idx = indices[:train_size], indices[train_size:]
 
+# ---------------------------
+# Data Preprocessing
+# ---------------------------
 X_train, y_train = X[train_idx], y[train_idx]
 X_test, y_test = X[test_idx], y[test_idx]
 
@@ -35,6 +40,10 @@ X_train[:, 1:] = (X_train[:, 1:] - mean_X_train) / std_X_train
 
 X_test[:, 1:] = (X_test[:, 1:] - mean_X_train) / std_X_train
 
+
+# ---------------------------
+# Gradient Ascent Setup
+# ---------------------------
 learning_rate = 0.01
 num_iterations = 1000
 weights = np.zeros(X_train.shape[1])
@@ -47,12 +56,18 @@ for i in range(num_iterations):
     gradient = np.dot((y_train - preds), X_train) 
     weights += learning_rate * gradient
 
+# ---------------------------
+# Evaluation
+# ---------------------------
 test_preds = sigmoid(np.dot(X_test, weights)) 
 predicted_labels = (test_preds >= 0.5).astype(int)
 
 accuracy = np.mean(predicted_labels == y_test)
 print(f"Accuracy: {accuracy * 100:.2f}%")
 
+# ---------------------------
+# Visualization
+# ---------------------------
 x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
 y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
 
