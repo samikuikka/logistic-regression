@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
 
 np.random.seed(42)
 num_samples = 200
@@ -37,7 +36,6 @@ mean_X_train = np.mean(X_train[:, 1:], axis=0)
 std_X_train = np.std(X_train[:, 1:], axis=0)   
 
 X_train[:, 1:] = (X_train[:, 1:] - mean_X_train) / std_X_train
-
 X_test[:, 1:] = (X_test[:, 1:] - mean_X_train) / std_X_train
 
 
